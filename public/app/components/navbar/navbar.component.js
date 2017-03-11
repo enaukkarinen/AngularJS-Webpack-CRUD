@@ -1,12 +1,11 @@
 
 
 
-export default class NavbarController { 
- 
-    constructor()
-    {
-        console.log('init nav');
-    }
+export default class NavbarController {
+
+  constructor() {
+    // console.log('init nav');
+  }
 }
 
 angular.module('asd', [])

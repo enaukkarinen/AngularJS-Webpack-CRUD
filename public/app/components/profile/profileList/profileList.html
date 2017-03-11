@@ -1,0 +1,55 @@
+<div class="container mt-5">
+
+	<div class="row">
+		<div class="col-md-3">
+			<search-tool></search-tool>
+		</div>
+		<div class="col-md-9">
+			<div class="row">
+				<div class="col-md-12">
+					<h4>Results:</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table table-bordered table-hover table-responsive">
+						<thead>
+							<tr>
+								<th class="col-md-1"></th>
+								<th>Profile</th>
+								<th>Sub title</th>
+								<th>Country</th>
+								<th class="col-md-1">Enabled</th>
+								<th class="col-md-1">Visible</th>
+							</tr>
+						</thead>
+						<tbody ng-if="pro.profiles">
+							<tr class="text-" ng-repeat="p in pro.profiles | startFrom:pro.currentPage * pro.pageSize | limitTo: 5">
+								<td><img ng-src="http://img.businessoffashion.com/50/50/magic/{{p.thumbnail.file}}"></td>
+								<td>{{p.first_name + ' ' + p.last_name}}</td>
+								<td>{{p.profile_sub_title}}</td>
+								<td>{{p.country_name}}</td>
+								<td class="text-center">
+									<i ng-if="p.is_enabled === true" class="glyphicon glyphicon-ok text-color-green"></i>
+									<i ng-if="p.is_enabled === false" class="glyphicon glyphicon-remove text-color-red"></i>
+								</td>
+								<td class="text-center">
+									<i ng-if="p.is_visible === true" class="glyphicon glyphicon-ok text-color-green"></i>
+									<i ng-if="p.is_visible === false" class="glyphicon glyphicon-remove text-color-red"></i>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row" ng-if="pro.profiles">
+				<div class="col-md-12">
+					<ul ng-repeat="a in pro.range(pro.numberOfPages) track by $index" class="pagination col-md-pull-5">
+						<li><a ng-click="pro.currentPage = $index+1" href="">{{$index}}</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
