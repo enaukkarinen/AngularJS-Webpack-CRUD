@@ -1,5 +1,4 @@
 node_modules
-public/vendor
 npm-debug.log
 ._*
 *___jb_bak___
@@ -9,3 +8,4 @@ npm-debug.log
 .idea
 .localized
 .vscode
+build

@@ -6,6 +6,7 @@ const Clean = require('clean-webpack-plugin');
 module.exports = {
   debug: true,
   watch: true,
+  devtool: 'source-map',
 
   entry: {
     'lib': [
@@ -22,7 +23,7 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     publicPath: '/',
     filename: '[name].bundle.js', // [name] is used so the bundle file name matches the entry point defined above
-    sourceMapFilename: '[name].map',
+    sourceMapFilename: '[name].bundle.map',
     chunkFilename: '[id].chunk.js'
   },
   module: {

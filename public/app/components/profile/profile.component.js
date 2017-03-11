@@ -1,16 +1,20 @@
 
+import angular from 'angular';
+// import ProfileService from './profile.service';
+// import './searchSideBar/searchSideBar.component';
 
-export default class ProfileController { 
- 
-    constructor()
-    {
-        console.log('init prof');
-    }
+export default class Profile {
+
+  static $inject = ['profileService'];
+  constructor(profileService) {
+    this.profileService = profileService;
+    this.profileService.title();
+  }
 }
 
-angular.module('prof', [])
-  .component('profile', {
-    template: require('./profile.html'),
-    controller: ProfileController,
-    controllerAs: 'pro'
-  });
+// angular.module('prof', [])
+//   .component('profile', {
+//     template: require('./profile.html'),
+//     controller: ProfileController,
+//     controllerAs: 'pro'
+//   });
