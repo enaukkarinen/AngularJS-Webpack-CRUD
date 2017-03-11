@@ -1,7 +1,6 @@
 
 import angular from 'angular';
 import ProfileList from './profileList/profileList.component';
-import SearchTool from './searchTool/searchTool.component';
 import profileService from './profile.service';
 
 export default angular.module('prof', [])
@@ -11,14 +10,9 @@ export default angular.module('prof', [])
         controller: ProfileList,
         controllerAs: 'pro'
     })
-    .component('searchTool', {
-        template: require('./searchTool/SearchTool.html'),
-        controller: SearchTool,
-        controllerAs: 'src'
-    })
-    .filter('startFrom', function () {
-        return function (input, start) {
-            start = +start; //parse to int
+    .filter('startFrom', () => {
+        return (input, start) => {
+            start = +start;
             return input.slice(start);
         }
     });
