@@ -44,17 +44,11 @@ module.exports = {
         include: path.resolve(__dirname, 'public'),
         exclude: /node_modules/,
         loader: 'babel-loader'
-      },
-      {
-        test: /\.dae$/,
-        include: path.resolve(__dirname, 'app/assets'),
-        exclude: /node_modules/,
-        loader: 'file'
       }
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js']
   },
   plugins: [
     new Clean(['dist'], path.resolve(__dirname)),

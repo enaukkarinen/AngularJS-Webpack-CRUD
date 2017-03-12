@@ -6,12 +6,30 @@ require('./profileEdit.scss');
 
 export default class ProfileEdit {
 
-    static $inject = ['$scope', '$state', 'profileService'];
-    constructor($scope, $state, profileService) {
+    static $inject = ['$scope', '$state', '$timeout', 'profileService'];
+    constructor($scope, $state, $timeout, profileService) {
         this.thumbnailUri = 'http://img.businessoffashion.com/50/50/magic/';
         this.$state = $state;
+        this.$timeout = $timeout;
+        this.profileService = profileService;
         this.profile = _.extend({}, this.$state.params.profile, true);
-        console.log(this.profile);
+    }
+
+    submit() {
+        this.errorMessage = null;
+        this.isBusy = true;
+        this.profileService.save(this.profile)
+            .then(r => {
+                // simulate latency
+                this.$timeout(() => {
+                    this.isBusy = false;
+                    this.$state.go('list');
+                }, 1000);
+            }).catch(err => {
+                console.log(err);
+                this.isBusy = false;
+                this.errorMessage = err.message;
+            })
     }
 }
 

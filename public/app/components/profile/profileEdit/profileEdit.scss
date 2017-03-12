@@ -2,3 +2,25 @@
 .asset-row div {
     margin: 5px;
 }
+
+.edit-form {
+    padding: 10px;
+    .row {
+        line-height: 20px;
+        margin-bottom: 5px;
+    }
+}
+
+.disabled-img {
+    opacity: 0.4;
+    filter: alpha(opacity=40); /* msie */
+}
+
+.glyphicon .spinning {
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg); }
+    to { transform: scale(1) rotate(360deg); }
+}

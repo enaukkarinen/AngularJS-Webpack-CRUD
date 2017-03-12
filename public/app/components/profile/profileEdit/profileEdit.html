@@ -1,24 +1,100 @@
 <div class="container mt-5">
-
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="row">
                 <img ng-src="{{ped.thumbnailUri + ped.profile.thumbnail.file}}">
                 <p>{{ped.profile.last_name + ', ' + ped.profile.first_name}}</p>
             </div>
-            <h4>Assets</h4>
+
             <div class="row asset-row">
-                <div ng-repeat="asset in ped.profile.assets">
-                    <img ng-src="{{ped.thumbnailUri + asset.path}}">
-                    <a href="">edit</a>
+                <h4>Assets</h4>
+                <div style="cursor: pointer;" ng-repeat="asset in ped.profile.assets" ng-click="ped.profile.thumbnail.file = asset.path">
+                    <img ng-class="{'disabled-img': ped.isBusy}" ng-src="{{ped.thumbnailUri + asset.path}}">
+                    <a class="btn" ng-class="{'disabled': ped.isBusy}" href="">Set as thumbnail</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-10">
             <div class="row">
-
-                <input ng-model="ped.profile.first_name" type="text"></div>
+                <form class="edit-form" name="ped.editForm">
+                    <fieldset ng-disabled="ped.isBusy">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3>Details</h3>
+                                <hr/>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3">
+                                <label for="first_name">First name</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" name="first_name" ng-model="ped.profile.first_name" type="text" />
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3">
+                                <label for="last_name">Last name</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" name="last_name" ng-model="ped.profile.last_name" type="text" />
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-3">
+                                <label for="summary">Summary</label>
+                            </div>
+                            <div class="col-md-9">
+                                <textarea class="form-control" name="summary" ng-model="ped.profile.summary"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="enabled">Enabled</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" name="enabled" ng-model="ped.profile.is_enabled" type="checkbox" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="visible">Visible</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" name="visible" ng-model="ped.profile.is_visible" type="checkbox" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="countryname">Country name</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" name="countryname" ng-model="ped.profile.country_name" type="text" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="countrycode">Country code</label>
+                            </div>
+                            <div class="col-md-9">
+                                <input class="form-control" name="countrycode" ng-model="ped.profile.country_code" type="text" />
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="row">
+                <button type="button" ng-click="ped.submit()" class="btn btn-primary" ng-disabled="ped.isBusy">
+                    <div ng-show="ped.isBusy !== true">Save</div>
+                    <div ng-show="ped.isBusy === true">
+                        <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate spinning"></span> Loading...
+                    </div>
+                </button>
+                <a style="margin-left: 10px" href="" ui-sref="list" ng-disabled="ped.isBusy">Cancel</button>
+                <div ng-show="ped.errorMessage" class="alert alert-danger" style="margin-top: 10px;">
+                    <strong>Error:</strong>{{ped.errorMessage}}
+                </div>
+            </div>
         </div>
     </div>
-</div>
 </div>

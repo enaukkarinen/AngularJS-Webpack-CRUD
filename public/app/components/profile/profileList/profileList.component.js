@@ -35,10 +35,14 @@ export default class ProfileList {
 
   createSearchString(searchObj) {
     let searchString = '';
-    if (searchObj.searchWord) {
-      // hack for multiword searches
-      let firstWord = searchObj.searchWord.split(' ')[0].trim();
-      searchString += `q=${firstWord}&`
+    if (searchObj.searchWord && searchObj.searchWord.length > 0) {
+      
+      searchString += 'q=';
+      let words = searchObj.searchWord.split(' ');
+
+      searchString += words.length > 1 ? 
+      _.map(words, w => w.trim()).join('%20') : words[0].trim();
+      searchString += '&';
     }
     if (searchObj.enabledTrue !== searchObj.enabledFalse) {
       if (searchObj.enabledTrue === true) {
@@ -56,11 +60,11 @@ export default class ProfileList {
       }
     }
 
-    return searchString.substring(0, searchString.length - 1);;
+    return searchString.substring(0, searchString.length - 1);
   }
 
   edit(profile) {
-    this.$state.go('edit', {profile});
+    this.$state.go('edit', { profile });
   }
   range(n) {
     if (this.profileService.profiles && this.profileService.profiles.length > 0) {
