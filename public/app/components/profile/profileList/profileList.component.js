@@ -60,7 +60,7 @@ export default class ProfileList {
               this.searchObject.pageNumber = null;
             }
             this.isBusy = false;
-          }, Math.floor((Math.random() * 1000) + 350));
+          }, Math.floor((Math.random() * 500) + 250));
         });
       });
   }
