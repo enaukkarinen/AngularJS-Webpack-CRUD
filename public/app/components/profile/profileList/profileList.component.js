@@ -10,7 +10,7 @@ export default class ProfileList {
     this.$state = $state;
     this.$timeout = $timeout;
     this.profileService = profileService;
-    this.thumbnailUri = 'http://img.businessoffashion.com/50/50/magic/';
+    
     this.isBusy = true;
     this.initObservables();
     this.searchObject = { pageNumber: undefined };

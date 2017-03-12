@@ -8,7 +8,7 @@ export default class ProfileEdit {
 
     static $inject = ['$scope', '$state', '$timeout', 'profileService'];
     constructor($scope, $state, $timeout, profileService) {
-        this.thumbnailUri = 'http://img.businessoffashion.com/50/50/magic/';
+
         this.$state = $state;
         this.$timeout = $timeout;
         this.profileService = profileService;

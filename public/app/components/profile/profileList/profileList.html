@@ -80,7 +80,7 @@
 						</thead>
 						<tbody ng-if="pro.profileService.profiles">
 							<tr ng-click="pro.edit(p)" class="text-" ng-repeat="p in pro.profileService.profiles | startFrom: (pro.currentPage * pro.profileService.pageSize) -pro.profileService.pageSize | limitTo: pro.profileService.pageSize">
-								<td><img ng-src="{{pro.thumbnailUri + p.thumbnail.file}}"></td>
+								<td><img ng-src="{{pro.profileService.thumbnailUri + p.thumbnail.file}}"></td>
 								<td>{{p.first_name + ' ' + p.last_name}}</td>
 								<td>{{p.profile_sub_title}}</td>
 								<td>{{p.country_name}}</td>

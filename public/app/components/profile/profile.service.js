@@ -8,7 +8,7 @@ class profileService {
         this.$http = $http;
         this.profiles = [];
         this.api = 'http://localhost:3000/profiles';
-        this.defaultPageParams = '?_page=1&_limit=10';
+        this.thumbnailUri = 'http://img.businessoffashion.com/50/50/magic/';
         this.pageSize = 10;
     }
 

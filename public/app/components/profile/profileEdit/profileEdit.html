@@ -2,14 +2,14 @@
     <div class="row">
         <div class="col-md-2">
             <div class="row">
-                <img ng-src="{{ped.thumbnailUri + ped.profile.thumbnail.file}}">
+                <img ng-src="{{ped.profileService.thumbnailUri + ped.profile.thumbnail.file}}">
                 <p>{{ped.profile.last_name + ', ' + ped.profile.first_name}}</p>
             </div>
 
             <div class="row asset-row">
                 <h4>Assets</h4>
                 <div style="cursor: pointer;" ng-repeat="asset in ped.profile.assets" ng-click="ped.profile.thumbnail.file = asset.path">
-                    <img ng-class="{'disabled-img': ped.isBusy}" ng-src="{{ped.thumbnailUri + asset.path}}">
+                    <img ng-class="{'disabled-img': ped.isBusy}" ng-src="{{ped.profileService.thumbnailUri + asset.path}}">
                     <a class="btn" ng-class="{'disabled': ped.isBusy}" href="">Set as thumbnail</a>
                 </div>
             </div>
