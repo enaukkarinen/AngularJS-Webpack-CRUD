@@ -4,44 +4,79 @@ import { Observable } from 'rxjs';
 
 export default class ProfileList {
 
-  static $inject = ['$scope', '$state', 'profileService'];
-  constructor($scope, $state, profileService) {
+  static $inject = ['$scope', '$state', '$timeout', 'profileService'];
+  constructor($scope, $state, $timeout, profileService) {
     this.$scope = $scope;
     this.$state = $state;
+    this.$timeout = $timeout;
     this.profileService = profileService;
     this.thumbnailUri = 'http://img.businessoffashion.com/50/50/magic/';
-    this.currentPage = 1;
-    this.pageSize = 10;
+    this.isBusy = true;
+    this.initObservables();
+    this.searchObject = { pageNumber: undefined };
 
-    this.searchObject = {};
-    this.profileService.search();
+    // init first query
+    this.$timeout(() => {
+      this.searchObject.pageNumber = 1;
+    });
+  }
 
+  initObservables() {
+    // search tools
+    var dueToPageChange = false;
     Observable.$watch(this.$scope, () => this.searchObject, true)
       .debounceTime(500)
-      // .distinctUntilChanged() broken?
-      .filter((valueObj) => {
-        let areEqual = angular.equals(valueObj.newValue, valueObj.oldValue);
-        return !areEqual;
+      .do(() => {
+        dueToPageChange = false;
+      })
+      .filter((vObj) => {
+        var hasChanged = _.some(vObj.newValue, (value, key) => {
+          if (key === 'pageNumber') {
+            if (value !== null && value !== vObj.oldValue[key]) {
+              dueToPageChange = true;
+              return true;
+            } else {
+              return false;
+            }
+          }
+          return value !== vObj.oldValue[key];
+        });
+        console.log(hasChanged);
+        return hasChanged;
       })
       .map((valueObj) => {
         return this.createSearchString(valueObj.newValue)
       })
       .subscribe((query) => {
+        this.isBusy = true;
         this.profileService.search(query).then(() => {
-          this.currentPage = 1;
+
+          // simulate latency
+          this.$timeout(() => {
+            this.profileCount = this.profileService.totalProfileCount;
+
+            // reset view to first page
+            if (!dueToPageChange) {
+              this.searchObject.pageNumber = null;
+            }
+            this.isBusy = false;
+          }, Math.floor((Math.random() * 1000) + 350));
         });
       });
   }
 
   createSearchString(searchObj) {
-    let searchString = '';
+
+    let searchString = `?_page=${searchObj.pageNumber || 1}&`;
+
     if (searchObj.searchWord && searchObj.searchWord.length > 0) {
-      
+
       searchString += 'q=';
       let words = searchObj.searchWord.split(' ');
 
-      searchString += words.length > 1 ? 
-      _.map(words, w => w.trim()).join('%20') : words[0].trim();
+      searchString += words.length > 1 ?
+        _.map(words, w => w.trim()).join('%20') : words[0].trim();
+
       searchString += '&';
     }
     if (searchObj.enabledTrue !== searchObj.enabledFalse) {
@@ -63,13 +98,20 @@ export default class ProfileList {
     return searchString.substring(0, searchString.length - 1);
   }
 
+  createPaginationString(pageNumber) {
+    return;
+  }
+
   edit(profile) {
     this.$state.go('edit', { profile });
   }
+
   range(n) {
-    if (this.profileService.profiles && this.profileService.profiles.length > 0) {
-      return new Array(Math.ceil(this.profileService.profiles.length / this.pageSize) - 1);
-    } else return undefined;
+    if (this.profileService.totalProfileCount && this.profileService.totalProfileCount > 0) {
+      return new Array(Math.ceil(this.profileService.totalProfileCount / this.profileService.pageSize) - 1);
+    } else {
+      return undefined;
+    }
   }
 
 }

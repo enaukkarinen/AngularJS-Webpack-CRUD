@@ -59,7 +59,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-9">
+		<div class="col-md-9" ng-show="!pro.isBusy">
 			<div class="row">
 				<div class="col-md-12">
 					<h4>Results:</h4>
@@ -78,8 +78,8 @@
 								<th class="col-md-1">Visible</th>
 							</tr>
 						</thead>
-						<tbody ng-if="pro.profileService.profiles" ng-init="pro.currentPage = 1">
-							<tr ng-click="pro.edit(p)" class="text-" ng-repeat="p in pro.profileService.profiles | startFrom: (pro.currentPage * pro.pageSize) -pro.pageSize | limitTo: pro.pageSize">
+						<tbody ng-if="pro.profileService.profiles">
+							<tr ng-click="pro.edit(p)" class="text-" ng-repeat="p in pro.profileService.profiles | startFrom: (pro.currentPage * pro.profileService.pageSize) -pro.profileService.pageSize | limitTo: pro.profileService.pageSize">
 								<td><img ng-src="{{pro.thumbnailUri + p.thumbnail.file}}"></td>
 								<td>{{p.first_name + ' ' + p.last_name}}</td>
 								<td>{{p.profile_sub_title}}</td>
@@ -100,8 +100,17 @@
 			<div class="row" ng-if="pro.profileService.profiles">
 				<div class="col-md-12">
 					<ul ng-repeat="a in pro.range() track by $index" class="pagination col-md-pull-5">
-						<li><a ng-class="{'active-link': $index+1 === pro.currentPage}"  ng-click="pro.currentPage = $index+1" href="">{{$index+1}}</a></li>
+						<li><a ng-class="{'active-link': $index+1 === pro.searchObject.pageNumber 
+						|| $index === 0 && pro.searchObject.pageNumber === null}" ng-click="pro.searchObject.pageNumber = $index+1" href="">{{$index+1}}</a></li>
 					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-9" ng-show="pro.isBusy">
+			<div class="row">
+				<div class="col-md-12 loader">
+					<div>Loading...</div>
 				</div>
 			</div>
 		</div>
