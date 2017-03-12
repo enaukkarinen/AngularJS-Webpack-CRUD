@@ -8,7 +8,6 @@ export default class ProfileEdit {
 
     static $inject = ['$scope', '$state', '$timeout', 'profileService'];
     constructor($scope, $state, $timeout, profileService) {
-
         this.$state = $state;
         this.$timeout = $timeout;
         this.profileService = profileService;

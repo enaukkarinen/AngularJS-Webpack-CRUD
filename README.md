@@ -28,7 +28,7 @@ Other Notes
 - Please remember to demonstrate your skills and how you would normally approach feature development
 - I must ask that you time yourself so that you balance Quality and Delivery. I will not prescribe a
 deadline of X hours, instead, I would like you estimate the task, complete the task, and measure your elapsed time. Please submit your estimate and actual time with your code solution
-- Solution should be fully working when we check out code, make sure you add any additional dependancies you use in package.json or bower.json
+- Solution should be fully working when we check out code, make sure you add any additional dependencies you use in package.json or bower.json
 - You can access API docs here: (https://github.com/bof-ci/test-angular/blob/master/API_DOCS.md)
 
 

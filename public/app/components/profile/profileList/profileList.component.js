@@ -13,7 +13,7 @@ export default class ProfileList {
     
     this.isBusy = true;
     this.initObservables();
-    this.searchObject = { pageNumber: undefined };
+    this.searchObject = {};
 
     // init first query
     this.$timeout(() => {
