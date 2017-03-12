@@ -67,7 +67,7 @@
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<table class="table table-bordered table-hover table-responsive">
+					<table class="profile-table table table-bordered table-hover table-responsive">
 						<thead>
 							<tr>
 								<th class="col-md-1"></th>
@@ -79,7 +79,7 @@
 							</tr>
 						</thead>
 						<tbody ng-if="pro.profileService.profiles" ng-init="pro.currentPage = 1">
-							<tr class="text-" ng-repeat="p in pro.profileService.profiles | startFrom: (pro.currentPage * pro.pageSize) -pro.pageSize | limitTo: pro.pageSize">
+							<tr ng-click="pro.edit(p)" class="text-" ng-repeat="p in pro.profileService.profiles | startFrom: (pro.currentPage * pro.pageSize) -pro.pageSize | limitTo: pro.pageSize">
 								<td><img ng-src="{{pro.thumbnailUri + p.thumbnail.file}}"></td>
 								<td>{{p.first_name + ' ' + p.last_name}}</td>
 								<td>{{p.profile_sub_title}}</td>
@@ -100,7 +100,7 @@
 			<div class="row" ng-if="pro.profileService.profiles">
 				<div class="col-md-12">
 					<ul ng-repeat="a in pro.range() track by $index" class="pagination col-md-pull-5">
-						<li><a ng-click="pro.currentPage = $index+1" href="">{{$index}}</a></li>
+						<li><a ng-class="{'active-link': $index+1 === pro.currentPage}"  ng-click="pro.currentPage = $index+1" href="">{{$index+1}}</a></li>
 					</ul>
 				</div>
 			</div>

@@ -4,9 +4,10 @@ import { Observable } from 'rxjs';
 
 export default class ProfileList {
 
-  static $inject = ['$scope', 'profileService'];
-  constructor($scope, profileService) {
+  static $inject = ['$scope', '$state', 'profileService'];
+  constructor($scope, $state, profileService) {
     this.$scope = $scope;
+    this.$state = $state;
     this.profileService = profileService;
     this.thumbnailUri = 'http://img.businessoffashion.com/50/50/magic/';
     this.currentPage = 1;
@@ -58,6 +59,9 @@ export default class ProfileList {
     return searchString.substring(0, searchString.length - 1);;
   }
 
+  edit(profile) {
+    this.$state.go('edit', {profile});
+  }
   range(n) {
     if (this.profileService.profiles && this.profileService.profiles.length > 0) {
       return new Array(Math.ceil(this.profileService.profiles.length / this.pageSize) - 1);

@@ -1,0 +1,24 @@
+<div class="container mt-5">
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="row">
+                <img ng-src="{{ped.thumbnailUri + ped.profile.thumbnail.file}}">
+                <p>{{ped.profile.last_name + ', ' + ped.profile.first_name}}</p>
+            </div>
+            <h4>Assets</h4>
+            <div class="row asset-row">
+                <div ng-repeat="asset in ped.profile.assets">
+                    <img ng-src="{{ped.thumbnailUri + asset.path}}">
+                    <a href="">edit</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+
+                <input ng-model="ped.profile.first_name" type="text"></div>
+        </div>
+    </div>
+</div>
+</div>
